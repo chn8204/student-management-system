@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Student Management System</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="main.js"></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="header-content">
+      <div>
+        <p class="eyebrow">SCHOOL INFORMATION SYSTEM</p>
+        <h1>Student Management System</h1>
+        <p class="header-description">
+          Manage student information in one place.
+        </p>
+      </div>
+
+      <div class="system-badge">
+        <span class="status-dot"></span>
+        System Ready
+      </div>
+    </div>
+  </header>
+
+  <nav class="navigation" aria-label="Main navigation">
+    <button
+      type="button"
+      class="nav-button active"
+      data-page="dashboardPage"
+    >
+      Dashboard
+    </button>
+
+    <button
+      type="button"
+      class="nav-button"
+      data-page="studentsPage"
+    >
+      Student Records
+    </button>
+  </nav>
+
+  <main class="container">
+    <div
+      id="systemStatus"
+      class="status-message"
+      role="status"
+      aria-live="polite"
+    >
+      System is ready.
+    </div>
+
+    <!-- DASHBOARD PAGE -->
+    <section id="dashboardPage" class="page">
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">OVERVIEW</p>
+          <h2>Dashboard</h2>
+          <p class="muted">
+            Here's an overview of your student records.
+          </p>
+        </div>
+
+        <button type="button" id="goToStudents" class="primary-button">
+          + Manage Students
+        </button>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-icon">ST</div>
+
+          <div>
+            <p class="stat-label">Total Students</p>
+            <p id="studentCount" class="stat-number">0</p>
+            <p class="stat-description">Registered records</p>
+          </div>
+        </article>
+      </div>
+
+      <article class="panel welcome-panel">
+        <p class="eyebrow">WELCOME</p>
+        <h3>Student records made simple.</h3>
+        <p class="muted">
+          Use the Student Records page to add new students,
+          search existing records, and remove records when needed.
+        </p>
+
+        <button type="button" id="viewRecordsButton" class="secondary-button">
+          View Student Records
+        </button>
+      </article>
+
+      <p class="storage-note">
+        Demo version: records are saved in this browser.
+      </p>
+    </section>
+
+    <!-- STUDENT RECORDS PAGE -->
+    <section id="studentsPage" class="page" hidden>
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">RECORD MANAGEMENT</p>
+          <h2>Student Records</h2>
+          <p class="muted">
+            Add and manage student information.
+          </p>
+        </div>
+      </div>
+
+      <!-- ADD STUDENT FORM -->
+      <article class="panel">
+        <h3>Add New Student</h3>
+        <p class="muted">
+          Complete all required fields before submitting.
+        </p>
+
+        <form id="studentForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="studentId">Student ID *</label>
+              <input
+                type="text"
+                id="studentId"
+                name="studentId"
+                placeholder="Example: 2026-001"
+                maxlength="30"
+                autocomplete="off"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="fullName">Full Name *</label>
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                placeholder="Enter full name"
+                maxlength="100"
+                autocomplete="name"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="course">Course *</label>
+              <input
+                type="text"
+                id="course"
+                name="course"
+                placeholder="Example: BSIT"
+                maxlength="100"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="yearLevel">Year Level *</label>
+              <select id="yearLevel" name="yearLevel" required>
+                <option value="">Select year level</option>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="section">Section *</label>
+              <input
+                type="text"
+                id="section"
+                name="section"
+                placeholder="Example: BSIT 2A"
+                maxlength="50"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-button">
+              Add Student
+            </button>
+
+            <button type="reset" class="secondary-button">
+              Clear Form
+            </button>
+          </div>
+        </form>
+      </article>
+
+      <!-- STUDENT TABLE -->
+      <article class="panel records-panel">
+        <div class="records-heading">
+          <div>
+            <h3>Registered Students</h3>
+            <p id="recordsSummary" class="muted">
+              0 students found
+            </p>
+          </div>
+
+          <div class="search-box">
+            <label for="searchInput" class="sr-only">
+              Search students
+            </label>
+
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Search student records..."
+              autocomplete="off"
+            >
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Full Name</th>
+                <th>Course</th>
+                <th>Year Level</th>
+                <th>Section</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="studentTableBody">
+              <tr>
+                <td colspan="6" class="empty-state">
+                  No student records yet.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <p class="storage-note">
+        Only add sample or authorized student information.
+        This prototype is not designed for storing confidential records.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Student Management System</p>
+    <p>System Analysis and Design — Midterm Project</p>
+  </footer>
+</body>
+</html>
