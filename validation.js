@@ -84,8 +84,9 @@ export function validateStudent(student) {
     "3rd Year",
     "4th Year"
   ];
+  const yearLevel = student.yearLevel.trim();
 
-  if (!allowedYearLevels.includes(student.yearLevel)) {
+  if (!allowedYearLevels.includes(yearLevel)) {
     return {
       valid: false,
       message: "Please select a valid year level."
