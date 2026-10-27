@@ -8,6 +8,17 @@
 */
 
 export function validateStudent(student) {
+  if (
+    student === null ||
+    typeof student !== "object" ||
+    Array.isArray(student)
+  ) {
+    return {
+      valid: false,
+      message: "Student information is required."
+    };
+  }
+
   const requiredFields = [
     ["Student ID", student.studentId],
     ["Full Name", student.fullName],
