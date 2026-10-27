@@ -78,19 +78,25 @@ function renderStudents() {
   const query = searchInput.value.trim().toLowerCase();
 
   // Filter records based on the search text.
-  const filteredStudents = getStudents().filter(student => {
-    const searchableValues = [
-      student.studentId,
-      student.fullName,
-      student.course,
-      student.yearLevel,
-      student.section
-    ];
+  const filteredStudents = getStudents()
+    .filter(student => {
+      const searchableValues = [
+        student.studentId,
+        student.fullName,
+        student.course,
+        student.yearLevel,
+        student.section
+      ];
 
-    return searchableValues.some(value =>
-      String(value).toLowerCase().includes(query)
+      return searchableValues.some(value =>
+        String(value).toLowerCase().includes(query)
+      );
+    })
+    .sort((first, second) =>
+      first.fullName.localeCompare(second.fullName, undefined, {
+        sensitivity: "base"
+      })
     );
-  });
 
   // Clear the existing table.
   tbody.replaceChildren();
